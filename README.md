@@ -5,7 +5,7 @@ A project using ReactJS and Redux to align text in Justify order using only java
 If you have already installed webpack and webpack-devserver globally just ignore 2nd and 3rd command.
 ```
 npm install
-npm install webpack-dev-server -g
+npm install webpack -g
 npm install webpack-dev-server -g
 npm start
 ```
