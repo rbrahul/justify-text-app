@@ -8,7 +8,7 @@ const stateObject = {
         fetchedTexts: [],
         seletedText: 0,
         wordSeperator: '-',
-        maximumLineLength: 50,
+        maximumLineLength: 100,
         justifiedText: ''
     };
 
