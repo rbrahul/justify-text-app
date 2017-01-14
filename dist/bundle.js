@@ -33614,7 +33614,7 @@
 	var stateObject = {
 	    fetchedTexts: [],
 	    seletedText: 0,
-	    wordSeperator: '*',
+	    wordSeperator: '-',
 	    maximumLineLength: 50,
 	    justifiedText: ''
 	};
