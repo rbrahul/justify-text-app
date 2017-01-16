@@ -104,3 +104,7 @@ body{
 .lineLengthField .btn, .btn-large, .btn-flat {
   padding: 0 14px;
 }
+
+.passage {
+      font-family: 'Roboto Mono', monospace !important;
+}

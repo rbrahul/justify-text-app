@@ -33000,7 +33000,7 @@
 	                            { className: "header" },
 	                            "Justified Text"
 	                        ),
-	                        _react2.default.createElement("span", { className: "", dangerouslySetInnerHTML: { __html: this.props.text } })
+	                        _react2.default.createElement("span", { className: "passage", dangerouslySetInnerHTML: { __html: this.props.text } })
 	                    )
 	                )
 	            );
