@@ -10,7 +10,7 @@ npm install webpack-dev-server -g
 npm start
 ```
 ##Screen Shot of App:
-![Task Manager](https://raw.githubusercontent.com/rbrahul/justify-text-app/master/src/images/screen-justify-text-app.png"Text Justify Application developed with  ReactJS and Javascript")
+![Task Manager](https://raw.githubusercontent.com/rbrahul/justify-text-app/master/src/images/screen-justify-text-app.png "Text Justify Application developed with  ReactJS and Javascript")
 
 ##Note: 
 I have used [Faker](https://github.com/marak/Faker.js) to load random text.
