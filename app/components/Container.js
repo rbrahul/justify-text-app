@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import MainContent from './MainContent';
 import Sidebar from './Sidebar';
@@ -7,9 +8,9 @@ import Preloader from './Preloader.js';
 class Container extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { showPreloader: false, noInternetConnection: false };
-
+		this.state = { noInternetConnection: false };
 	}
+
 	hasNet() {
 		this.setState({ noInternetConnection: !navigator.onLine});
 	}
@@ -19,11 +20,10 @@ class Container extends Component {
 	}
 
 	render() {
-
 		return (
 			<div className="row row-without-margin-bottom">
 				{
-					(this.state.showPreloader || this.state.noInternetConnection) &&
+					(this.props.showPreloader || this.state.noInternetConnection) &&
 					<Preloader noInternetConnection={this.state.noInternetConnection} />
 				}
 
@@ -34,4 +34,17 @@ class Container extends Component {
 	}
 }
 
-export default Container;
+
+
+function mapStateAsProps(state) {
+    return {
+        showPreloader: state.justifyText.showPreloader
+    };
+}
+
+function mapDispatchAsProps(dispatch) {
+    return {
+    }
+}
+
+export default Container = connect(mapStateAsProps, mapDispatchAsProps)(Container);

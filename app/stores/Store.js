@@ -9,7 +9,8 @@ const stateObject = {
         seletedText: 0,
         wordSeperator: '-',
         maximumLineLength: 100,
-        justifiedText: ''
+        justifiedText: '',
+        showPreloader: false
     };
 
 let initialState={

@@ -1,24 +1,49 @@
+import fetch from 'isomorphic-fetch';
 import * as types from '../constants/ActionTypes';
 import store from '../stores/Store';
+import config from '../utils/config';
+
 const faker = require('faker');
 
 export function fetchRandomText() {
-    const dummyText = faker.lorem.paragraphs();
-     const lineLength = store.getState().justifyText.maximumLineLength;
-    const maxWordLength = _countMaxWordLength(dummyText);
-    if (lineLength < maxWordLength) {
-        alert(`Line should be more than ${maxWordLength} character`);
-        return {
-            type: ''
-        };
-    }
-
     return (dispatch) => {
-        dispatch(dispatchTextReceived(dummyText));
+        dispatch(showPreloader());
+        fetch(config.loremAPIURL, {
+            method: 'get'
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((json) => {
+                let dummyText = json.text;
+                let lineLength = store.getState().justifyText.maximumLineLength;
+                let maxWordLength = _countMaxWordLength(dummyText);
+                if (lineLength < maxWordLength) {
+                    alert(`Line should be more than ${maxWordLength} character`);
+                    return {
+                        type: ''
+                    };
+                }
+                dispatch(dispatchTextReceived(dummyText));
+                 dispatch(hidePreloader());
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
-
 }
 
+export function showPreloader() {
+    return {
+        type: types.SHOW_PRELOADER
+    };
+}
+
+export function hidePreloader() {
+    return {
+        type: types.HIDE_PRELOADER
+    };
+}
 
 export function restoreText(id) {
     const text = store.getState().justifyText.fetchedTexts[id];

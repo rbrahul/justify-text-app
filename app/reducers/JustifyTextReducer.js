@@ -1,28 +1,29 @@
 import * as type from '../constants/ActionTypes';
 import update from 'immutability-helper';
 import JustifyString from '../utils/JustifyString';
+import config from '../utils/config';
 
 
-function justify(text, maximumLineLength,wordSeperator=null) {
-	let justify = new JustifyString(text, maximumLineLength,wordSeperator);
+function justify(text, maximumLineLength, wordSeparator = null) {
+	let justify = new JustifyString(text, maximumLineLength, wordSeparator);
 	return justify.justifiedText(false); //false to get html formated space and new lines
 }
 
 function getCurrentIndex(items, id) {
-	if (items[id + 1]  !== undefined) {
+	if (items[id + 1] !== undefined) {
 		return id;
 	} else if (items[id - 1] !== undefined) {
-		return id-1;
+		return id - 1;
 	} else {
 		return 0;
 	}
 }
 
 function getNextIndex(items, id) {
-	if (items[id + 1]  !== undefined) {
-		return id+1;
+	if (items[id + 1] !== undefined) {
+		return id + 1;
 	} else if (items[id - 1] !== undefined) {
-		return id-1;
+		return id - 1;
 	} else {
 		return 'NO INDEX';
 	}
@@ -35,13 +36,13 @@ export function justifyText(state = {}, action) {
 			const newFetchedTexts = [action.data.text, ...state.fetchedTexts].slice(0, 5);
 			let justified = '';
 			try {
-	 			justified = justify(action.data.text,state.maximumLineLength,state.wordSeperator);
+				justified = justify(action.data.text, state.maximumLineLength, config.wordSeparator);
 				console.log(justified);
-			} catch(e){
+			} catch (e) {
 				console.error(e.message());
-				justified= ''
+				justified = ''
 			}
-			
+
 			return update(state, {
 				fetchedTexts: { $set: newFetchedTexts },
 				justifiedText: { $set: justified }
@@ -49,10 +50,10 @@ export function justifyText(state = {}, action) {
 
 
 		case type.RESTORE_TEXT:
-		const text = state.fetchedTexts[action.data.id];
+			const text = state.fetchedTexts[action.data.id];
 			return update(state, {
 				seletedText: { $set: action.data.id },
-				justifiedText: { $set: justify(text,state.maximumLineLength,state.wordSeperator) }
+				justifiedText: { $set: justify(text, state.maximumLineLength, config.wordSeparator) }
 			});
 
 
@@ -61,29 +62,38 @@ export function justifyText(state = {}, action) {
 				maximumLineLength: { $set: action.data.length }
 			});
 
+		case type.SHOW_PRELOADER:
+			return update(state, {
+				showPreloader: { $set: true }
+			});
+
+		case type.HIDE_PRELOADER:
+			return update(state, {
+				showPreloader: { $set: false }
+			});
 
 		case type.DELETE_TEXT:
 			const currentIndex = getCurrentIndex(state.fetchedTexts, action.data.id);
-			let textsArray =  state.fetchedTexts;
+			let textsArray = state.fetchedTexts;
 			let currentText = '';
 			let newJustifiedText = '';
-			if( action.data.id===state.seletedText) {
+			if (action.data.id === state.seletedText) {
 				const nextIndex = getNextIndex(state.fetchedTexts, action.data.id)
-				if (nextIndex!=='NO INDEX') {
+				if (nextIndex !== 'NO INDEX') {
 					currentText = textsArray[nextIndex];
 				} else {
 					currentText = '';
-				} 
-		
-				if(currentText.length) {
-					newJustifiedText= justify(currentText,state.maximumLineLength,state.wordSeperator)
+				}
+
+				if (currentText.length) {
+					newJustifiedText = justify(currentText, state.maximumLineLength, config.wordSeparator)
 				}
 			}
-			
+
 			return update(state, {
 				fetchedTexts: { $splice: [[action.data.id, 1]] },
 				seletedText: { $set: currentIndex },
-				justifiedText: { $set: (action.data.id!==state.seletedText)? state.justifiedText : newJustifiedText  }
+				justifiedText: { $set: (action.data.id !== state.seletedText) ? state.justifiedText : newJustifiedText }
 			});
 
 		default:
