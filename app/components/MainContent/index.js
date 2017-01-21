@@ -21,10 +21,10 @@ function mapStateAsProps(state) {
 	};
 }
 
-function mapDispatchAsProps(dispatch) {
+function mapDispatchAsProps() {
 	return {
-	}
+	};
 }
 
-export default MainContent = connect(mapStateAsProps, mapDispatchAsProps)(MainContent);
+export default connect(mapStateAsProps, mapDispatchAsProps)(MainContent);
 

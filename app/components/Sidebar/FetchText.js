@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import HistoryCardItem from './HistoryCardItem';
-
-
 class FetchText extends Component {
     constructor(props) {
         super(props);
@@ -15,11 +12,11 @@ class FetchText extends Component {
 
     setLength() {
         const lineLength = ReactDOM.findDOMNode(this.refs.lineLengthField).value.trim();
-  
+
         const pat = /^[0-9]+$/;
         if(!lineLength ||  !pat.test(lineLength)) {
-          alert('Enter valid number');  
-          ReactDOM.findDOMNode(this.refs.lineLengthField).value=''; 
+          alert('Enter valid number');
+          ReactDOM.findDOMNode(this.refs.lineLengthField).value='';
         } else {
            this.props.setLineLength(lineLength);
            return;
@@ -28,7 +25,7 @@ class FetchText extends Component {
 
     render() {
         return (<div className="row title-area">
-          
+
             <div className="input-field">
             <div className="row lineLengthField" >
                  <div className="col s8">
@@ -41,7 +38,7 @@ class FetchText extends Component {
                 </div>
                 <label className="active white-text" >Line Length</label>
             </div>
-            
+
             <a href="#" onClick={this.fetchTextFromRemote} className=" waves-effect waves-light justify-btn white blue-text btn-large center-align ">
    Justify Text</a>
         </div>

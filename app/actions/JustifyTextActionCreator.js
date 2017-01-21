@@ -3,8 +3,6 @@ import * as types from '../constants/ActionTypes';
 import store from '../stores/Store';
 import config from '../utils/config';
 
-const faker = require('faker');
-
 export function fetchRandomText() {
     return (dispatch) => {
         dispatch(showPreloader());
@@ -25,12 +23,12 @@ export function fetchRandomText() {
                     };
                 }
                 dispatch(dispatchTextReceived(dummyText));
-                 dispatch(hidePreloader());
+                dispatch(hidePreloader());
             })
             .catch((error) => {
-                console.error(error);
+                throw new Error(`Something went wrong ${error.message}`);
             });
-    }
+    };
 }
 
 export function showPreloader() {
@@ -63,7 +61,7 @@ export function restoreText(id) {
                 id
             }
         });
-    }
+    };
 }
 
 export function setLineLength(length) {
@@ -85,7 +83,7 @@ export function deleteText(id) {
 }
 
 function _countMaxWordLength(paragraph) {
-    const newLineTrimmedText = paragraph.trim().replace(/(\r\n|\n|\r)/gm, "");
+    const newLineTrimmedText = paragraph.trim().replace(/(\r\n|\n|\r)/gm, '');
     const words = newLineTrimmedText.split(/\s+/g);
     var wordLengthsArray = words.map(function (word) {
         return word.length;
@@ -102,5 +100,5 @@ function dispatchTextReceived(dummyText) {
         data: {
             text: dummyText
         }
-    }
+    };
 }

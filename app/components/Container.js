@@ -12,7 +12,7 @@ class Container extends Component {
 	}
 
 	hasNet() {
-		this.setState({ noInternetConnection: !navigator.onLine});
+		this.setState({ noInternetConnection: !navigator.onLine });
 	}
 
 	componentWillMount() {
@@ -37,14 +37,14 @@ class Container extends Component {
 
 
 function mapStateAsProps(state) {
-    return {
-        showPreloader: state.justifyText.showPreloader
-    };
+	return {
+		showPreloader: state.justifyText.showPreloader
+	};
 }
 
-function mapDispatchAsProps(dispatch) {
-    return {
-    }
+function mapDispatchAsProps() {
+	return {
+	};
 }
 
-export default Container = connect(mapStateAsProps, mapDispatchAsProps)(Container);
+export default connect(mapStateAsProps, mapDispatchAsProps)(Container);

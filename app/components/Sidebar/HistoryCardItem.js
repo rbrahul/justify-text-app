@@ -15,7 +15,7 @@ class HistoryCardItem extends Component {
 		this.props.restoreText(id);
 	}
 	deleteHistoryItem(e,id) {
-		const confirmDelete = confirm("Do you really want to delete this history?");
+		const confirmDelete = confirm('Do you really want to delete this history?');
 		if(confirmDelete) {
 			this.props.deleteText(id);
 		}

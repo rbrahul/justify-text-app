@@ -74,7 +74,7 @@ function mapDispatchAsProps(dispatch) {
         setLineLength(lineLength) {
             dispatch(setLineLength(lineLength));
         }
-    }
+    };
 }
 
-export default Sidebar = connect(mapStateAsProps, mapDispatchAsProps)(Sidebar);
+export default connect(mapStateAsProps, mapDispatchAsProps)(Sidebar);
